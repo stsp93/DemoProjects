@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Table Component</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Open+Sans:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- CSS Styling -->
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Inter", sans-serif;
+      }
+      body {
+        color: #495057;
+        line-height: 1;
+        display: flex;
+        justify-content: center;
+
+      }
+      table{
+        width: 800px;
+        margin-top: 100px;
+        border-collapse: collapse;
+        font-size: 18px;
+      }
+      th, td{
+        padding: 16px 24px;
+        text-align: left;
+      }
+      thead th{
+        background-color: #e67700;
+        color: #fff;
+        width: 25%;
+      }
+      tbody tr:nth-child(odd){
+        background-color: #fff9db;
+      }
+      tbody tr:nth-child(even){
+        background-color: #ffec99;
+      }
+      /* BACK BUTTON */
+      .btn--back{
+        font-family: sans-serif;
+        font-size: 32px;
+        background-color: #5c940d;
+        color: #e9fac8;
+        padding: 16px;
+        border-radius: 8px;
+        text-decoration: none;
+        position: absolute;
+        top:100%;
+        transform: translate(-200%, -200%);
+      }
+      .btn--back:hover {
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+        background-color: #74b816;
+      }
+      .btn--back:active{
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        background-color: #5c940d;
+      }
+    </style>
+  </head>
+  <body>
+    <table>
+      <thead>
+        <tr>
+          <th>Computer</td>
+          <th>Napalm</th>
+          <th>Furious</th>
+          <th>AXE</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Price</th>
+          <td>1299 lv.</td>
+          <td>1779 lv.</td>
+          <td>1369 lv.</td>
+        </tr>
+        <tr>
+          <th>Processor</th>
+          <td>2.9/4.3GHz, 12MB Cache</td>
+          <td>2.9/4.3GHz, 12MB Cache</td>
+          <td>2.6Ghz up to 4.4Ghz, 12MB Cache, 95W</td>
+        </tr>
+        <tr>
+          <th>RAM</th>
+          <td>8 GB 2666 MHz DDR4 New</td>
+          <td>8 GB 2666 MHz DDR4 New</td>
+          <td>8 GB 2933 Mhz DDR4</td>
+        </tr>
+        <tr>
+          <th>Video Card</th>
+          <td>Nvidia GeForce GTX 1650 4GB DDR5</td>
+          <td>Nvidia GeForce RTX 2060 6GB GDDR6</td>
+          <td>Nvidia GeForce GTX 1650 4GB DDR5</td>
+        </tr>
+      </tbody>
+    </table>
+    <a class="btn--back" href="index.html">Back</a>
+  </body>
+</html>

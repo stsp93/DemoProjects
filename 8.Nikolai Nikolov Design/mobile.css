@@ -1,0 +1,21 @@
+@media (max-width: 57em) {
+    html{
+        font-size: 50%;
+    }
+
+    .gallery-box{
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+}
+
+@media (max-width: 44em) {
+    html{
+        font-size: 37.5%;
+    }
+
+    .gallery-box{
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}

@@ -1,0 +1,177 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html{
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+}
+body{
+    font-family: sans-serif;
+    color: #333;
+}
+/* **************** */
+/* REUSABLE CSS */
+/* **************** */
+
+.container{
+    max-width: 150rem;
+    margin: 0 auto;
+}
+
+/* ********************* */
+/* HEADER SECTION */
+/* ********************* */
+.section-header{
+    padding: 3.2rem 6.4rem 2.4rem 6.4rem;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+.logo-title{
+    display: block;
+    font-size: 5.2rem;
+    font-family: serif;
+    margin-bottom: 1.6rem;
+}
+
+.logo-text{
+    font-size: 2rem;
+}
+
+.main-nav{
+    display: flex;
+    font-size: 2.4rem;
+    gap: 2.4rem;
+    text-transform: uppercase;
+}
+.contacts:link, .contacts:visited{
+    text-decoration: none;
+    font-weight: 600;
+    color: #fff;
+    background-color: #333;
+    transition: all 0.4s;
+    padding: 2.4rem 4.8rem;
+    border-radius: 8px;
+}
+.contacts:hover, .contacts:active{
+    text-decoration: none;
+    font-weight: 600;
+    background-color: #f8f9fa;
+    border: 2px solid #212529;
+    color: #333;
+}
+
+/* ********************* */
+/* DESCRIPTION SECTION */
+/* ********************* */
+.section-description{
+    background-color: #f8f9fa;
+    padding: 6.4rem;
+}
+.title{
+    font-size: 3.6rem;
+    text-align: center;
+    margin-bottom: 4.4rem;
+}
+.description-list{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    font-size: 2rem;
+
+    gap: 1.6rem;
+}
+.description-text{
+    border-bottom: 1px solid #555;
+
+}
+
+/* ********************* */
+/* PHOTOS SECTION */
+/* ********************* */
+.section-photo{
+    padding: 3.2rem;
+}
+
+.photos{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.6rem;
+}
+
+.photos img{
+    width: 100%;
+}
+
+/* ********************* */
+/* FOOTER SECTION */
+/* ********************* */
+
+.section-footer{
+    background-color: #f8f9fa;
+}
+
+.footer {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 6.4rem;
+}
+
+.footer-logo-box{
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+}
+
+.footer-logo:link, .footer-logo:visited{
+    font-family: serif;
+    font-size: 2.4rem;
+    color: inherit;
+    text-decoration: none;
+}
+
+.footer-logo:hover, .footer-logo:activer{
+    color: #777;
+}
+
+.footer-copy{
+    font-size: 1.6rem;
+}
+
+.footer-contacts{
+    display: flex;
+    flex-direction: column;
+    font-size: 2rem;
+    gap: 1.6rem;
+}
+
+.footer-contacts a:link, .footer-contacts a:visited{
+    display: block;
+    text-decoration: none;
+    color: #212529;
+}
+
+.footer-contacts a:hover, .footer-contacts a:active{
+    color: #777;
+}
+
+.social-network{
+    display: flex;
+    gap: 1.6rem;
+    margin-right: 4.8rem;
+}
+
+.social-network-icon{
+    fill: #fff;
+    stroke: #333;
+}

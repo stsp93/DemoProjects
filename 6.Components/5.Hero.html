@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hero Component</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Roboto", sans-serif;
+        color: #444;
+        display: flex;
+        flex-direction: column;
+        gap: 48px;
+        line-height: 1.5;
+      }
+      header {
+        height: 100vh;
+        position: relative;
+        padding: 24px;
+        background-image: linear-gradient(rgba(36, 36, 36, 0.6),rgba(36, 36, 36, 0.6)),url(hero.jpg);
+        background-size: cover;
+      }
+      nav {
+        display: flex;
+        justify-content: space-between;
+      }
+      .container {
+        width: 1200px;
+        margin: 0 auto;
+      }
+      .header-container {
+          color: #fff;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .header-inner{
+          width: 50%;
+      }
+      a:link,
+      a:visited {
+        color: #fff;
+        font-size: 20px;
+        font-weight: 700;
+        text-decoration: none;
+      }
+      h1 {
+        font-size: 58px;
+        margin-bottom: 48px;
+        line-height: 1;
+      }
+      p {
+        font-size: 24px;
+        margin-bottom: 48px;
+      }
+      .btn {
+        color: #fff;
+        border: none;
+        background-color: #e67e22;
+        font-size: 20px;
+        font-weight: 600;
+        padding: 16px 32px;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+       /* BACK BUTTON */
+       #btn--back{
+        width: 98px;
+        height : 48px;
+        font-family: sans-serif;
+        font-size: 32px;
+        background-color: #5c940d;
+        color: #e9fac8;
+        border-radius: 8px;
+        text-decoration: none;
+        position: absolute;
+        left: 50%;
+        transform: translate(+50%,+50%);
+        display: flex;
+        justify-content: center;
+
+        
+      }
+      #btn--back:hover {
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+        background-color: #74b816;
+      }
+      #btn--back:active{
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        background-color: #5c940d;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav class="container">
+        <a href="#">LOGO</a>
+        <a href="#">NAVIGATION</a>
+      </nav>
+      <div class="header-container container">
+        <div class="header-inner">
+          <h1>Productivity Tools That Will Make Your Life Much Easier</h1>
+          <p>
+            Productivity is never an accident. It is always the result of a commitment to excellence, intelligent planning, and consistent effort.
+          </p>
+          <button class="btn">Choose your tool now</button>
+        </div>
+      </div>
+    </header>
+    <section class="container">
+      <h1>Some random heading</h1>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius nostrum,
+        unde ipsum rem eligendi impedit assumenda soluta culpa vero at mollitia
+        quia nobis atque nesciunt quasi ipsam? Nam, enim voluptates!
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex error ut consequuntur atque tempora quo? Unde harum itaque aliquam optio voluptas quis fugiat nisi, accusantium, voluptate nemo eos ad commodi.
+      </p>
+    </section>
+    <a id="btn--back" href="index.html">Back</a>
+  </body>
+</html>

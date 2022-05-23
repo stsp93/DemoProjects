@@ -1,0 +1,129 @@
+* {
+  margin: 0;
+  pad: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: #212529;
+  background-color: #fff;
+  width: 1000px;
+  margin:0 auto;
+  position: relative;
+}
+.container{  
+  background-color: #fff;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+
+.main-header {
+  text-align: center;
+  font-size: 24px;
+  padding: 16px;
+  background-color: #fff;
+  text-shadow: 0 5px 2px rgb(0, 0, 0, 0.1);
+  margin-bottom: 48px;
+
+  grid-column: 1/ -1;
+
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+}
+
+/* Discription Box */
+.description {
+  font-size: 30px;
+  align-self: center;
+}
+.github--link:link, .github--link:visited{
+  color: #c0eb75;
+  background-color: #5c940d;
+  font-style: italic;
+  font-size: 24px;
+  text-decoration: none;
+  border-radius: 5px;
+  
+}
+
+/* BUTTON */
+.btn{
+  font-size: 20px;
+  font-family: sans-serif;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  background-color: #5c940d;
+  color: #fff;
+}
+.btn--contact{
+  
+  border-radius: 8px;
+  margin-top: 15px;
+  
+}
+.btn:hover{  
+  color: #e9fac8;
+  background-color: #74b816; 
+}
+.btn:active{
+  background-color: #5c940d;
+}
+.btn--submit{
+  width: 150px;
+  height: 80px;
+  border-radius: 150px;
+}
+
+/* Contact Modal Window */
+.modal{
+  font-size: 30px;
+  position: absolute;
+  height: 400px;
+  width: 600px;
+  background-color: rgba(255, 255, 255, 0.582);
+  padding: 20px;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  border: 3px solid rgba(92, 148, 13, 0.5);
+  border-radius: 8px;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.modal--message{
+  margin-bottom: 32px;
+}
+.enter--email{
+  width: 250px;
+  height: 70px;
+  font-size: 16px;
+  margin-bottom: 32px;
+  font-family: sans-serif;
+  border-radius: 8px;
+}
+.enter--message{
+  width: 300px;
+  height: 100%;
+  font-family: sans-serif;
+  margin-bottom: 32px;
+  font-size: 16px;
+  resize: none;
+  border-radius: 8px;
+}
+
+
+/* EFFECTS */
+.hidden {
+  display: none;
+}
+.blur{
+  filter: blur(5px) brightness(0.9);
+}

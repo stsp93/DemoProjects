@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>6.Email App Layout</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Roboto", sans-serif;
+        display: grid;
+        height: 100vh;
+        color: #343a40;
+        font-size: 24px;
+        text-align: center;
+        grid-template-columns: 80px 400px 1fr 250px;
+        grid-template-rows: 80px 1fr;
+      }
+      nav {
+        grid-row: 1/ -1;
+        font-weight: 700;
+        color: #fff;
+        background-color: #444;
+        padding-top: 24px;
+      }
+      menu {
+        display: flex;
+        grid-column: 2 / -1;
+        background-color: #5c7cfa;
+        font-size: 18px;
+        font-weight: 500;
+        padding: 16px;
+        align-items: center;
+        gap: 16px;
+      }
+      a {
+        color: #fff;
+        text-decoration: none;
+        background-color: #3b5bdb;
+        padding: 8px;
+      }
+      a:last-child {
+        background-color: #e64980;
+        margin-left: auto;
+      }
+      main {
+        display: flex;
+        flex-direction: column;
+        background-color: #e9ecef;
+        font-size: 30px;
+        font-weight: 500;
+        gap: 40px;
+        padding: 40px;
+        overflow: scroll;
+      }
+      main div {
+        display: flex;
+        height: 96px;
+        flex-shrink: 0;
+        background-color: #ced4da;
+        align-items: center;
+        justify-content: center;
+      }
+      section {
+        font-weight: 500;
+
+        padding-top: 24px;
+      }
+      aside {
+        padding: 24px;
+
+        font-weight: 500;
+        background-color: #e9ecef;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>Nav</nav>
+    <menu>
+      <a href="#">Inbox</a>
+      <a href="#">Sent</a>
+      <a href="#">Personal</a>
+      <a href="#">Important</a>
+      <a href="#">Snoozed</a>
+      <a href="#">Trash</a>
+    </menu>
+    <main>
+      <div>Email 1</div>
+      <div>Email 2</div>
+      <div>Email 3</div>
+      <div>Email 4</div>
+      <div>Email 5</div>
+      <div>Email 6</div>
+      <div>Email 7</div>
+      <div>Email 8</div>
+      <div>Email 9</div>
+      <div>Email 10</div>
+    </main>
+    <section>Email</section>
+    <aside>Additional info</aside>
+  </body>
+</html>

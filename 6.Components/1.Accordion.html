@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Accordion Component</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Open+Sans:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- CSS Styling -->
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Inter", sans-serif;
+      }
+      body {
+        width: 700px;
+        margin: 100px auto;
+        line-height: 1.5;
+        color: #495057;
+      }
+      .container {
+        
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+      .item {
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+        display: grid;
+        padding: 24px;
+        border-radius: 8px;
+
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        justify-content: center;
+        row-gap: 8px;
+        column-gap: 24px;
+      }
+
+      .number,
+      .text {
+        font-size: 24px;
+        font-weight: 500;
+        color: #ced4da;
+      }
+      .text {
+        color: #495057;
+      }
+      .icon {
+        width: 24px;
+        height: 24px;
+        stroke: #495057;
+      }
+      .hidden-item {
+        grid-column: 2;
+        overflow: hidden;
+        max-height: 0;
+        transition: all 1s ease;
+      }
+      .hidden-item ul {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        padding: 20px;
+      }
+      /* Arrow Button */
+      .btn--arrow {
+        background-color: #fff;
+        border: #fff;
+        cursor: pointer;
+      }
+      .btn--arrow:link svg,
+      .btn--arrow:visited svg {
+        stroke: #495057;
+      }
+      .btn--arrow:hover svg {
+        stroke: #e67700;
+        transition: all 0.3s;
+      }
+      /* Open effect */
+      .open .hidden-item {
+        max-height: 300px;
+        transition: all 1s ease-in;
+      }
+      .open .number,
+      .open .text {
+        color: #e67700;
+      }
+      .open .icon {
+        stroke: #e67700;
+      }
+      .item.open {
+        border-top: 4px solid #e67700;
+      }
+      .btn--back{
+        font-family: sans-serif;
+        font-size: 32px;
+        background-color: #5c940d;
+        color: #e9fac8;
+        padding: 16px;
+        border-radius: 8px;
+        text-decoration: none;
+        position: absolute;
+        transform: translate(0, 50%);
+      }
+      .btn--back:hover {
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+        background-color: #74b816;
+      }
+      .btn--back:active{
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        background-color: #5c940d;
+      }
+      
+    </style>
+
+  </head>
+  <body>
+    <div class="container">
+      <!-- Item 1 -->
+      <div class="item item--1">
+        <p class="number">01.</p>
+        <p class="text">Pariatur iure quaerat sint quia magnam official?</p>
+        <button class="btn--arrow arrow--1">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            class="icon"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"
+            />
+          </svg>
+        </button>
+        <div class="hidden-item">
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Neque
+            aliquid consequuntur at soluta nobis inventore nesciunt error
+            doloremque ea? Natus consequuntur asperiores ducimus, porro vero
+            aperiam incidunt sit minus recusandae.
+          </p>
+          <ul>
+            <li>Laboriosam fugit illo nisi odit nam hic tempora?</li>
+            <li>Ipsam porro deserunt saepe rem optio, quas quis ea nisi.</li>
+            <li>Reiciendis ipsum unde harum aliquam accusamus enim.</li>
+            <li>Porro suscipit fugit quasienim, repudiandae.</li>
+          </ul>
+        </div>
+      </div>
+      <!-- Item 2 -->
+      <div class="item item--2">
+        <p class="number">02.</p>
+        <p class="text">Tempora harum fuga nisi saepe ariatur, porro?</p>
+        <button class="btn--arrow arrow--2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            class="icon"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"
+            />
+          </svg>
+        </button>
+        <div class="hidden-item">
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Neque
+            aliquid consequuntur at soluta nobis inventore nesciunt error
+            doloremque ea? Natus consequuntur asperiores ducimus, porro vero
+            aperiam incidunt sit minus recusandae.
+          </p>
+          <ul>
+            <li>Laboriosam fugit illo nisi odit nam hic tempora?</li>
+            <li>Ipsam porro deserunt saepe rem optio, quas quis ea nisi.</li>
+            <li>Reiciendis ipsum unde harum aliquam accusamus enim.</li>
+            <li>Porro suscipit fugit quasienim, repudiandae.</li>
+          </ul>
+        </div>
+      </div>
+      <!-- Item 3 -->
+      <div class="item item--3">
+        <p class="number">03.</p>
+        <p class="text">Laudantium magni beatae, quia non?</p>
+        <button class="btn--arrow arrow--3">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            class="icon"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"
+            />
+          </svg>
+        </button>
+        <div class="hidden-item">
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Neque
+            aliquid consequuntur at soluta nobis inventore nesciunt error
+            doloremque ea? Natus consequuntur asperiores ducimus, porro vero
+            aperiam incidunt sit minus recusandae.
+          </p>
+          <ul>
+            <li>Laboriosam fugit illo nisi odit nam hic tempora?</li>
+            <li>Ipsam porro deserunt saepe rem optio, quas quis ea nisi.</li>
+            <li>Reiciendis ipsum unde harum aliquam accusamus enim.</li>
+            <li>Porro suscipit fugit quasienim, repudiandae.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a class="btn--back" href="index.html">Back</a>
+    <!-- JavaScript logic -->
+    <script >
+      let acc = document.querySelectorAll('.btn--arrow');
+let item = document.querySelectorAll('.item');
+
+for (let i = 0; i < acc.length; i++){
+    item[i].addEventListener('click', function(){
+        console.log(item);
+        this.classList.toggle('open');
+        for(const el of item){
+            if(this !== el)
+            el.classList.remove('open');     
+        }  
+    })
+}
+    </script>
+  </body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carousel Component</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Open+Sans:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- CSS Styling -->
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Inter", sans-serif;
+      }
+      body {
+        width: 1200px;
+        margin: 0 auto;
+      }
+
+      .container {
+        width: 1000px;
+        margin: 100px auto;
+        padding: 48px;
+        padding-left: 98px;
+        border-radius: 8px;
+        
+        position: relative;
+      }
+      .slide {
+        display: flex;
+        background-color: #0c8599;
+        justify-content: center;
+        position: absolute;
+        gap: 64px;
+      }
+      /* Text style */
+      .description {
+        margin-left: 48px;
+        align-self: center;
+      }
+      .name {
+        font-size: 24px;
+        text-transform: uppercase;
+
+        color: #e3fafc;
+        margin-bottom: 24px;
+      }
+      .text {
+        font-size: 24px;
+        font-style: italic;
+        color: #c5f6fa;
+      }
+      /* BUTTONS STYLE*/
+      .btn {
+        width: 48px;
+        height: 48px;
+        background-color: #fff;
+        border: none;
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.25);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        position: absolute;
+        top: 50%;
+
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+      }
+      .icon {
+        stroke: #0c8599;
+      }
+      .btn--left {
+        left: 0;
+      }
+      .btn--right {
+        left: 100%;
+      }
+      .btn:hover .icon {
+        stroke: #15aabf;
+      }
+      .btn:active .icon {
+        stroke: #0c8599;
+      }
+      .dots {
+        display: flex;
+        gap: 8px;
+
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, 100%);
+      }
+      .dot {
+        height: 16px;
+        width: 16px;
+        background-color: #15aabf;
+        border: 2px solid #0c8599;
+        border-radius: 50%;
+
+        transition: all 1s;
+        cursor: pointer;
+      }
+      /* IMAGE STYLE */
+      .img {
+        max-height: 250px;
+        box-shadow: 0px 10px 24px rgba(0, 0, 0, 0.25);
+
+        border-radius: 8px;
+        transform: scale(1.5);
+        opacity: 1;
+        transition: all 1s;
+      }
+      /* EFFECTS */
+      .dots .inactive {
+        background-color: #fff;
+      }
+      .container .slide.inactive {
+        visibility: hidden;
+        
+      }
+      .hidden-item
+      /* BACK BUTTON */
+      .btn--back {
+        font-family: sans-serif;
+        font-size: 32px;
+        background-color: #5c940d;
+        color: #e9fac8;
+        padding: 16px;
+        border-radius: 8px;
+        text-decoration: none;
+        position: absolute;
+        transform: translate(100%, -50%);
+      }
+      .btn--back:hover {
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+        background-color: #74b816;
+      }
+      .btn--back:active {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        background-color: #5c940d;
+      }
+      .hidden{
+        opacity: 0.2;
+        transition: all 0.5s;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- SLIDE 1 -->
+      <div class="slide">
+        <img class="img" src="tool1.jpg" alt="Pipe wrench" />
+        <div class="description">
+          <p class="name">Pipe Wrench</p>
+          <p class="text">
+            The adjustable pipe, or Stillson, wrench is used to hold or turn
+            pipes or circular bars.
+          </p>
+        </div>
+      </div>
+      <!-- SLIDE 2 -->
+      <div class="slide inactive">
+        <img class="img hidden" src="tool2.jpg" alt="Wrench" />
+        <div class="description">
+          <p class="name">Wrench</p>
+          <p class="text">
+            Wrenches are made in various shapes and sizes and are used for
+            gripping, fastening, turning, tightening and loosening things like
+            pipes, pipe fittings, nuts and bolts.
+          </p>
+        </div>
+      </div>
+      <!-- SLIDE 3 -->
+      <div class="slide inactive">
+        <img class="img hidden" src="tool3.jpg" alt="Pipe wrench" />
+        <div class="description">
+          <p class="name">Ratchet</p>
+          <p class="text">
+            Mechanical tool that tightens and loosens nuts and bolts more
+            efficiently than other wrenches.
+          </p>
+        </div>
+      </div>
+      <!-- SLIDE 4 -->
+      <div class="slide inactive">
+        <img class="img hidden" src="tool4.jpg" alt="Pipe wrench" />
+        <div class="description">
+          <p class="name">Screws</p>
+          <p class="text">
+            The most common use of screws is to hold things together and
+            position items.
+          </p>
+        </div>
+      </div>
+      <!-- BUTTONS -->
+      <button class="btn btn--left">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="icon"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15 19l-7-7 7-7"
+          />
+        </svg>
+      </button>
+      <button class="btn btn--right">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="icon"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M9 5l7 7-7 7"
+          />
+        </svg>
+      </button>
+      <!-- DOTS -->
+      <div class="dots">
+        <button class="dot">&nbsp;</button>
+        <button class="dot inactive">&nbsp;</button>
+        <button class="dot inactive">&nbsp;</button>
+        <button class="dot inactive">&nbsp;</button>
+      </div>
+    </div>
+    <a class="btn--back" href="index.html">Back</a>
+    <script src="script.js"></script>
+  </body>
+</html>
