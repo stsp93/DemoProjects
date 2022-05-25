@@ -11,7 +11,34 @@ const inputDuration = document.querySelector('.form__input--duration');
 const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
 
-
+class Workout {
+    date = new Date()
+    id = String(Date.now()).slice(-10);
+    constructor(coords, distance, duration){
+        this.coords = coords; //[lat, ton]
+        this.distance = distance; //km
+        this.duration = duration; //min
+    }
+    
+}
+class Running extends Workout{
+    constructor(coords, distance, duration, cadence){
+        super(coords, distance, duration);
+        this.cadence = cadence
+        this.pace = duration / distance //min/km
+    }
+}
+class Cycling extends Workout{
+    constructor(coords, distance, duration, elevationGain){
+        super(coords, distance, duration);
+        this.elevationGain = elevationGain;
+        this.speed = distance / (duration / 60); // km/h
+    }
+}
+let run = new Running([42,54], 37, 56, 100)
+let cycl = new Cycling([43,34], 21, 43, 100);
+console.log(run);
+console.log(cycl);
 
 
 class App {
@@ -80,5 +107,4 @@ const app = new App();
 
 
 
-// Toggle Cadence, Elevation on type change
 
