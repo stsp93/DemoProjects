@@ -49,11 +49,11 @@ class App {
     constructor() {
         this._getPosition();
         
-        form.addEventListener('submit', this._newWorkout.bind(this))
-        
         this._checkType();
         
-        inputType.addEventListener('change', this._toggleElevationField)
+        form.addEventListener('submit', this._newWorkout.bind(this))
+        
+        inputType.addEventListener('change', this._checkType);
         
     }
 
@@ -92,10 +92,6 @@ class App {
         }
     }
 
-    _toggleElevationField() {
-        inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
-        inputElevation.closest('.form__row').classList.toggle('form__row--hidden');
-    }
 
     _newWorkout(e) {
         const validInput = (...inputs) => inputs.every(inp => Number.isFinite(inp));
