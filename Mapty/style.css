@@ -171,6 +171,11 @@ a:visited {
   display: none;
 }
 
+.clear_data:hover{
+  color: var(--color-light--1);
+  cursor: pointer;
+}
+
 .copyright {
   margin-top: auto;
   font-size: 1.3rem;
