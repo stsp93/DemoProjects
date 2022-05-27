@@ -53,6 +53,7 @@ class App {
     #mapZoomLvl = 13;
     #mapEvent;
     #workouts = [];
+    #markers = [];
 
     constructor() {
         this._getPosition();
@@ -62,7 +63,9 @@ class App {
         form.addEventListener('submit', this._newWorkout.bind(this))
         inputType.addEventListener('change', this._checkType);
         containerWorkouts.addEventListener('click', this._moveToPopup.bind(this))
-        clearData.addEventListener('click', this.reset);
+        containerWorkouts.addEventListener('click', this._closeWorkout.bind(this));
+        clearData.addEventListener('click', this._clearData);
+        this._closeWorkout();
     }
 
     _getPosition() {
@@ -151,7 +154,9 @@ class App {
     }
 
     _renderWorkoutMarker(workout) {
-        L.marker(workout.coords)
+        const marker = new L.marker(workout.coords);
+        this.#markers.push([marker,workout.id]);
+        marker
             .addTo(this.#map)
             .bindPopup(
                 L.popup({
@@ -167,6 +172,7 @@ class App {
         let html = `
         <li class="workout workout--${workout.type}" data-id="${workout.id}">
           <h2 class="workout__title">${workout.description}</h2>
+          <span class="workout__close">&#10006;</span>
           <div class="workout__details">
             <span class="workout__icon">${workout.type === 'running' ? '🏃‍♂️' : '🚴‍♀️'}</span>
             <span class="workout__value">${workout.distance}</span>
@@ -206,7 +212,7 @@ class App {
           </div>
         </li>`
         }
-        form.insertAdjacentHTML('afterend', html)
+        form.insertAdjacentHTML('afterend', html);
 
     }
     _moveToPopup(e) {
@@ -239,14 +245,28 @@ class App {
 
         });
     }
-    reset() {
+
+    _clearData() {
         localStorage.removeItem('workouts')
         location.reload()
+    }
+
+    _closeWorkout(e){
+        if(!e) return;
+
+        const workoutCloseEl = e.target.closest('.workout__close');
+        const workoutEl = workoutCloseEl.closest('.workout');
+
+        const markerAndId = this.#markers.find(m => m[1] === workoutEl.dataset.id);
+        this.#markers = this.#markers.filter(m => m[1] !== workoutEl.dataset.id);
+        this.#workouts = this.#workouts.filter(w => w.id !== workoutEl.dataset.id);
+        localStorage.setItem('workouts', JSON.stringify(this.#workouts));
+        this.#map.removeLayer(markerAndId[0]);
+        workoutEl.remove();
     }
 }
 
 const app = new App();
-
 
 
 
