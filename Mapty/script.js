@@ -47,12 +47,15 @@ const inputElevation = document.querySelector('.form__input--elevation');
 const elevationDiv = document.querySelector('.elevation_div');
 const cadenceDiv = document.querySelector('.cadence_div');
 const clearData = document.querySelector('.clear_data');
+const workoutSort = document.querySelector('.workout_sort');
 
 class App {
     #map;
     #mapZoomLvl = 13;
     #mapEvent;
     #workouts = [];
+    #workoutState;
+    #sortedWorkouts = false;
     #markers = [];
 
     constructor() {
@@ -65,6 +68,7 @@ class App {
         containerWorkouts.addEventListener('click', this._moveToPopup.bind(this))
         containerWorkouts.addEventListener('click', this._closeWorkout.bind(this));
         clearData.addEventListener('click', this._clearData);
+        workoutSort.addEventListener('click', this._sortWorkouts.bind(this))
         this._closeWorkout();
     }
 
@@ -164,7 +168,7 @@ class App {
                     minHeight: 100,
                     autoClose: false,
                     className: `${workout.type}-popup`,
-                })).setPopupContent(`${this.type === 'running' ? '🏃‍♂️' : '🚴‍♀️'} ${workout.description}`)
+                })).setPopupContent(`${workout.type === 'running' ? '🏃‍♂️' : '🚴‍♀️'} ${workout.description}`)
             .openPopup();
     }
 
@@ -253,6 +257,7 @@ class App {
 
     _closeWorkout(e){
         if(!e) return;
+        if(!e.target.closest('.workout__close')) return;
 
         const workoutCloseEl = e.target.closest('.workout__close');
         const workoutEl = workoutCloseEl.closest('.workout');
@@ -263,6 +268,23 @@ class App {
         localStorage.setItem('workouts', JSON.stringify(this.#workouts));
         this.#map.removeLayer(markerAndId[0]);
         workoutEl.remove();
+    }
+
+    _sortWorkouts() {
+        document.querySelectorAll('.workout').forEach(el => el.remove());
+        // save the state
+        this.#workoutState = this.#workouts.slice();
+        // sort if not sorted
+        if(!this.#sortedWorkouts) {
+            this.#workouts.sort((a, b) => a.distance - b.distance);
+        }
+        // render workouts
+        this.#workouts.forEach(work => this._renderWorkout(work));
+        
+        this.#workouts = this.#workoutState.slice();
+        this.#sortedWorkouts = !this.#sortedWorkouts;
+        console.log(this.#sortedWorkouts);
+
     }
 }
 

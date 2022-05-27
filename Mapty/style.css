@@ -179,7 +179,14 @@ a:visited {
   display: none;
 }
 
-.clear_data:hover{
+.workout__functions{
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem 0 1rem;
+  
+}
+
+.workout__function:hover{
   color: var(--color-light--1);
   cursor: pointer;
 }
