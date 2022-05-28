@@ -31,4 +31,3 @@ function getCountry(country) {
 getCountry('Bulgaria');
 getCountry('Romania');
 getCountry('greece');
-getCountry('Madagascar')
