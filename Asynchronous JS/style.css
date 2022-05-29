@@ -14,6 +14,7 @@ body {
   color: #555;
   background-color: #f7f7f7;
   min-height: 100vh;
+  padding: 10rem;
 
   display: flex;
   align-items: center;
@@ -28,7 +29,8 @@ body {
 
 .countries {
   /* margin-bottom: 8rem; */
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 
   font-size: 2rem;
   opacity: 0;
@@ -46,7 +48,7 @@ body {
 }
 
 .neighbour::before {
-  content: 'Neighbour country';
+  content: "Neighbour country";
   width: 100%;
   position: absolute;
   top: -4rem;
@@ -106,6 +108,13 @@ body {
   color: white;
   background-color: orangered;
   cursor: pointer;
+}
+.input {
+  color: white;
+  background-color: orangered;
+  font-size: 2rem;
+  padding: 2rem 5rem;
+  border-radius: 0.7rem;
 }
 
 .images {
