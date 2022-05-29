@@ -20,32 +20,48 @@ const renderCountry = function (data, className = '') {
     countriesContainer.style.opacity = 1;
 }
 
-function getCountry(country) {
+// Using XMLHttpRequest
 
-    const xhr = new XMLHttpRequest();
+// function getCountry(country) {
 
-    xhr.open('GET', `https://restcountries.com/v3.1/name/${country}`);
-    xhr.send();
-    xhr.addEventListener('load', function () {
-        const [country] = JSON.parse(xhr.responseText);
-        renderCountry(country);
+//     const xhr = new XMLHttpRequest();
 
-        // get neighbour
-        const neighbour = country.borders[0];
-        if (!neighbour) return;
+//     xhr.open('GET', `https://restcountries.com/v3.1/name/${country}`);
+//     xhr.send();
+//     xhr.addEventListener('load', function () {
+//         const [country] = JSON.parse(xhr.responseText);
+//         renderCountry(country);
 
-        const xhr2 = new XMLHttpRequest();
+//         // get neighbour
+//         const neighbour = country.borders[0];
+//         if (!neighbour) return;
 
-        xhr2.open('GET', `https://restcountries.com/v3.1/alpha/${neighbour}`);
-        xhr2.send();
+//         const xhr2 = new XMLHttpRequest();
+
+//         xhr2.open('GET', `https://restcountries.com/v3.1/alpha/${neighbour}`);
+//         xhr2.send();
         
-        xhr2.addEventListener('load', function() {
-            const [neighbourCountry] = JSON.parse(xhr2.responseText);
-            renderCountry(neighbourCountry, 'neighbour')
-            console.log(neighbourCountry);
-        })
-    })
+//         xhr2.addEventListener('load', function() {
+//             const [neighbourCountry] = JSON.parse(xhr2.responseText);
+//             renderCountry(neighbourCountry, 'neighbour')
+//             console.log(neighbourCountry);
+//         })
+//     })
+// }
+
+
+
+// Using Fetch API
+
+const getCountryData = function(country) {
+  fetch(`https://restcountries.com/v3.1/name/${country}`).then(function(response) {
+    return response.json();
+  }).then(function(data) {
+    console.log(data);
+    renderCountry(data[0])
+  })
 }
 
-getCountry('GB');
+
+getCountryData('GB');
 
