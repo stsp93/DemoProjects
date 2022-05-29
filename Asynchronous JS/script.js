@@ -58,18 +58,18 @@ const getCountryData = function(country) {
   .then(response => response.json())
   .then(data => {
     renderCountry(data[0]);
-    const neighbour = data[0].borders[0];
+    const neighbour = data[0].borders[Math.floor(Math.random()*data[0].borders.length)];
     if(!neighbour) return;
     return fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`)
   })
     .then(response => response.json())
     .then(data => {
       console.log(data);
-      renderCountry(data[0], 'neighbour')
+      renderCountry(data[0], 'neighbour');
     });
   
 }
 
 
-getCountryData('Denmark');
+getCountryData('BG');
 
