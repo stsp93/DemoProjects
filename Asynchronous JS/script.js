@@ -18,6 +18,20 @@ const renderCountry = function (data, className = '') {
   countriesContainer.insertAdjacentHTML('beforeend', html)
 }
 
+const whereAmI = function (lat, lng) {
+  fetch(`https://geocode.xyz/${lat},${lng}?json=1`)
+      .then(response => {
+          if(!response.ok) throw new Error('No more than 1 request per second')
+          return response.json();
+      })
+      .then(data => {
+          const country = data.country;
+          if(!country ) throw new Error('Cant find your location');
+          return getCountryData(country);
+      }).catch(err => console.log(`${err}`))
+}
+
+
 const renderError = function(msg) {
   countriesContainer.insertAdjacentHTML('beforeend', `<h1 class="error">Error!!! ${msg} Try Again!</h1>`);
 }
@@ -76,7 +90,6 @@ const getCountryData = function(country) {
   .then(data => {
     renderCountry(data[0]);
     const neighbour = data[0].borders;
-    console.log(neighbour);
       if(!neighbour) {
         console.log('Error');
         throw new Error('Country has no neighbours')
@@ -93,5 +106,5 @@ const getCountryData = function(country) {
 }
 
 
-
+whereAmI(-33.933,18.474);
 
