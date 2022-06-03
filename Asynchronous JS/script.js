@@ -18,27 +18,44 @@ const renderCountry = function (data, className = '') {
   countriesContainer.insertAdjacentHTML('beforeend', html)
 }
 
-const whereAmI = function (lat, lng) {
-  fetch(`https://geocode.xyz/${lat},${lng}?json=1`)
-      .then(response => {
-          if(!response.ok) throw new Error('No more than 1 request per second')
-          return response.json();
-      })
-      .then(data => {
-          const country = data.country;
-          if(!country ) throw new Error('Cant find your location');
-          return getCountryData(country);
-      }).catch(err => console.log(`${err}`))
+const getPosition = function () {
+  return new Promise(function (resolve, reject) {
+    // navigator.geolocation.getCurrentPosition(
+
+    //   position => {
+    //     // console.log(position);
+    //     return resolve(position)},
+    //   err => {
+    //     return reject(err)})
+    //   ;
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  })
+}
+
+const whereAmI = function () {
+  getPosition().then(pos => {
+    const { latitude: lat, longitude: lng } = pos.coords;
+    return fetch(`https://geocode.xyz/${lat},${lng}?json=1`);
+  }).then(response => {
+    if (!response.ok) throw new Error('No more than 1 request per second')
+    return response.json();
+  })
+    .then(data => {
+      const country = data.country;
+      console.log(`You are in ${data.city}, ${data.country}`);
+      if (!country) throw new Error('Cant find your location');
+      return getCountryData(country);
+    }).catch(err => console.log(`${err}`))
 }
 
 
-const renderError = function(msg) {
+const renderError = function (msg) {
   countriesContainer.insertAdjacentHTML('beforeend', `<h1 class="error">Error!!! ${msg} Try Again!</h1>`);
 }
 
-const getJson = function(url, errorMsg = 'Something went wrong'){
+const getJson = function (url, errorMsg = 'Something went wrong') {
   return fetch(url).then(response => {
-    if(!response.ok) throw new Error(errorMsg, response.status);
+    if (!response.ok) throw new Error(errorMsg, response.status);
     return response.json()
   })
 }
@@ -65,7 +82,7 @@ const getJson = function(url, errorMsg = 'Something went wrong'){
 
 //         xhr2.open('GET', `https://restcountries.com/v3.1/alpha/${neighbour}`);
 //         xhr2.send();
-        
+
 //         xhr2.addEventListener('load', function() {
 //             const [neighbourCountry] = JSON.parse(xhr2.responseText);
 //             renderCountry(neighbourCountry, 'neighbour')
@@ -78,25 +95,23 @@ const getJson = function(url, errorMsg = 'Something went wrong'){
 
 // Using Fetch API
 
-btn.addEventListener('click', function() {
-  getCountryData(document.querySelector('.input').value);
-})
+btn.addEventListener('click', whereAmI)
 
-const getCountryData = function(country) {
+const getCountryData = function (country) {
   const errMsg = document.querySelector('.error');
-  if(errMsg) errMsg.remove();
+  if (errMsg) errMsg.remove();
   document.querySelectorAll('.country').forEach(node => node.remove());
   getJson(`https://restcountries.com/v3.1/name/${country}`, 'Country not Found')
-  .then(data => {
-    renderCountry(data[0]);
-    const neighbour = data[0].borders;
-      if(!neighbour) {
+    .then(data => {
+      renderCountry(data[0]);
+      const neighbour = data[0].borders;
+      if (!neighbour) {
         console.log('Error');
         throw new Error('Country has no neighbours')
       };
-    ;
-    return getJson(`https://restcountries.com/v3.1/alpha/${neighbour[0]}`, 'country not Found')
-  })
+      ;
+      return getJson(`https://restcountries.com/v3.1/alpha/${neighbour[0]}`, 'country not Found')
+    })
     .then(data => {
       renderCountry(data[0], 'neighbour');
     }).catch(err => {
@@ -106,5 +121,32 @@ const getCountryData = function(country) {
 }
 
 
-whereAmI(-33.933,18.474);
+// Creating a Promise
 
+// const lottery = new Promise(function(resolve, reject) {
+//   if(Math.random() > 0.5){
+//     resolve('You win 🏆')
+//   } else {
+//     reject(new Error('You lost 💣'))
+//   }
+// });
+
+// lottery.then(res => console.log(res))
+// .catch(err => console.log(err));
+
+const timer = function (seconds) {
+  if (seconds === 0) return;
+  new Promise(setTimeout(() => console.log('second passed'), 1000));
+  return timer(seconds - 1);
+}
+// timer(2).then(() => {
+//   console.log('second passed');
+//   return timer(1);
+// }).then(() => console.log('one second passed'));
+
+// timer(10);
+
+//Promisifying Geolocation API
+
+
+// getPosition().then(res => console.log(res)).catch(err => console.log(err));
