@@ -1,5 +1,4 @@
 'use strict';
-
 const btn = document.querySelector('.btn-country');
 const countriesContainer = document.querySelector('.countries');
 
@@ -159,21 +158,44 @@ const whereAmI = async function () {
     const position = await getPosition();
     const { latitude: lat, longitude: lng } = position.coords;
     const resGeo = await fetch(`https://geocode.xyz/${lat},${lng}?json=1`);
-    if(resGeo.status === 403) throw new Error('Only 1 try per second');
+    if (resGeo.status === 403) throw new Error('Only 1 try per second');
     const geoData = await resGeo.json();
     const res = await fetch(`https://restcountries.com/v3.1/name/${geoData.country}`);
-    if(!res.ok) throw new Error('Problem getting the country')
+    if (!res.ok) throw new Error('Problem getting the country')
     const data = await res.json();
     renderCountry(data[0]);
+
+    return `You are in ${geoData.city}, ${geoData.country}`;
   }
   catch (err) {
     console.error(`💣 ${err} `);
     renderError(`💣 ${err}`)
+
+    // Reject promise returned from async func
+    throw err;
   }
 
 }
+console.log('1: Get the location');
+// const loc = whereAmI();
+// console.log(location);
 
-whereAmI()
-whereAmI()
-whereAmI()
-console.log('First');
+//Using then and catch
+// whereAmI()
+// .then(res => console.log(res))
+// .catch(err => console.error(`3: ${err}`))
+// .finally(() => console.log(console.log('3:Location Found')));
+
+// Using async and IIFE
+
+(async function () {
+  try {
+    const country = await whereAmI();
+    console.log(`2: ${country}`);
+  } catch (err) {
+    console.error(`2: ${err}`)
+  }
+  console.log('3: Location Found');
+})()
+
+
