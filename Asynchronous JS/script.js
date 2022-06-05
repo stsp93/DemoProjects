@@ -51,7 +51,8 @@ const getPosition = function () {
 
 
 const renderError = function (msg) {
-  countriesContainer.insertAdjacentHTML('beforeend', `<h1 class="error">Error!!! ${msg} Try Again!</h1>`);
+  countriesContainer.insertAdjacentHTML('beforeend', `<h1 class="error">${msg} Try Again!</h1>`);
+  countriesContainer.style.opacity = 1;
 }
 
 const getJson = function (url, errorMsg = 'Something went wrong') {
@@ -153,17 +154,26 @@ const getCountryData = function (country) {
 // getPosition().then(res => console.log(res)).catch(err => console.log(err));
 
 // Using async await
-const whereAmI = async function() {
-  const position = await getPosition();
-  const {latitude:lat, longitude: lng} = position.coords;
-  const resGeo = await fetch(`https://geocode.xyz/${lat},${lng}?json=1`)
-  const geoData = await resGeo.json();
-
-  const res = await fetch(`https://restcountries.com/v3.1/name/${geoData.country}`);
-  const data = await res.json();
-  renderCountry(data[0]);
+const whereAmI = async function () {
+  try {
+    const position = await getPosition();
+    const { latitude: lat, longitude: lng } = position.coords;
+    const resGeo = await fetch(`https://geocode.xyz/${lat},${lng}?json=1`);
+    if(resGeo.status === 403) throw new Error('Only 1 try per second');
+    const geoData = await resGeo.json();
+    const res = await fetch(`https://restcountries.com/v3.1/name/${geoData.country}`);
+    if(!res.ok) throw new Error('Problem getting the country')
+    const data = await res.json();
+    renderCountry(data[0]);
+  }
+  catch (err) {
+    console.error(`💣 ${err} `);
+    renderError(`💣 ${err}`)
+  }
 
 }
 
+whereAmI()
+whereAmI()
 whereAmI()
 console.log('First');
