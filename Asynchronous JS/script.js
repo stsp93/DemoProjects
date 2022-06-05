@@ -15,7 +15,8 @@ const renderCountry = function (data, className = '') {
       <p class="country__row"><span>💰</span>${Object.entries(Object.entries(data.currencies)[0])[1][1].name}</p>
     </div>
   </article>`
-  countriesContainer.insertAdjacentHTML('beforeend', html)
+  countriesContainer.insertAdjacentHTML('beforeend', html);
+  countriesContainer.style.opacity = 1;
 }
 
 const getPosition = function () {
@@ -32,21 +33,21 @@ const getPosition = function () {
   })
 }
 
-const whereAmI = function () {
-  getPosition().then(pos => {
-    const { latitude: lat, longitude: lng } = pos.coords;
-    return fetch(`https://geocode.xyz/${lat},${lng}?json=1`);
-  }).then(response => {
-    if (!response.ok) throw new Error('No more than 1 request per second')
-    return response.json();
-  })
-    .then(data => {
-      const country = data.country;
-      console.log(`You are in ${data.city}, ${data.country}`);
-      if (!country) throw new Error('Cant find your location');
-      return getCountryData(country);
-    }).catch(err => console.log(`${err}`))
-}
+// const whereAmI = function () {
+//   getPosition().then(pos => {
+//     const { latitude: lat, longitude: lng } = pos.coords;
+//     return fetch(`https://geocode.xyz/${lat},${lng}?json=1`);
+//   }).then(response => {
+//     if (!response.ok) throw new Error('No more than 1 request per second')
+//     return response.json();
+//   })
+//     .then(data => {
+//       const country = data.country;
+//       console.log(`You are in ${data.city}, ${data.country}`);
+//       if (!country) throw new Error('Cant find your location');
+//       return getCountryData(country);
+//     }).catch(err => console.log(`${err}`))
+// }
 
 
 const renderError = function (msg) {
@@ -95,7 +96,7 @@ const getJson = function (url, errorMsg = 'Something went wrong') {
 
 // Using Fetch API
 
-btn.addEventListener('click', whereAmI)
+// btn.addEventListener('click', whereAmI)
 
 const getCountryData = function (country) {
   const errMsg = document.querySelector('.error');
@@ -134,11 +135,11 @@ const getCountryData = function (country) {
 // lottery.then(res => console.log(res))
 // .catch(err => console.log(err));
 
-const timer = function (seconds) {
-  if (seconds === 0) return;
-  new Promise(setTimeout(() => console.log('second passed'), 1000));
-  return timer(seconds - 1);
-}
+// const timer = function (seconds) {
+//   if (seconds === 0) return;
+//   new Promise(setTimeout(() => console.log('second passed'), 1000));
+//   return timer(seconds - 1);
+// }
 // timer(2).then(() => {
 //   console.log('second passed');
 //   return timer(1);
@@ -150,3 +151,19 @@ const timer = function (seconds) {
 
 
 // getPosition().then(res => console.log(res)).catch(err => console.log(err));
+
+// Using async await
+const whereAmI = async function() {
+  const position = await getPosition();
+  const {latitude:lat, longitude: lng} = position.coords;
+  const resGeo = await fetch(`https://geocode.xyz/${lat},${lng}?json=1`)
+  const geoData = await resGeo.json();
+
+  const res = await fetch(`https://restcountries.com/v3.1/name/${geoData.country}`);
+  const data = await res.json();
+  renderCountry(data[0]);
+
+}
+
+whereAmI()
+console.log('First');
