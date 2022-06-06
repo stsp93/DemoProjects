@@ -56,7 +56,7 @@ const renderError = function (msg) {
 
 const getJson = function (url, errorMsg = 'Something went wrong') {
   return fetch(url).then(response => {
-    if (!response.ok) throw new Error(errorMsg, response.status);
+    if (!response.ok) throw new Error(`${errorMsg} (${response.status})`);
     return response.json()
   })
 }
@@ -98,28 +98,28 @@ const getJson = function (url, errorMsg = 'Something went wrong') {
 
 // btn.addEventListener('click', whereAmI)
 
-const getCountryData = function (country) {
-  const errMsg = document.querySelector('.error');
-  if (errMsg) errMsg.remove();
-  document.querySelectorAll('.country').forEach(node => node.remove());
-  getJson(`https://restcountries.com/v3.1/name/${country}`, 'Country not Found')
-    .then(data => {
-      renderCountry(data[0]);
-      const neighbour = data[0].borders;
-      if (!neighbour) {
-        console.log('Error');
-        throw new Error('Country has no neighbours')
-      };
-      ;
-      return getJson(`https://restcountries.com/v3.1/alpha/${neighbour[0]}`, 'country not Found')
-    })
-    .then(data => {
-      renderCountry(data[0], 'neighbour');
-    }).catch(err => {
-      console.log(err);
-      renderError(err.message);
-    }).finally(() => countriesContainer.style.opacity = 1);
-}
+// const getCountryData = function (country) {
+//   const errMsg = document.querySelector('.error');
+//   if (errMsg) errMsg.remove();
+//   document.querySelectorAll('.country').forEach(node => node.remove());
+//   getJson(`https://restcountries.com/v3.1/name/${country}`, 'Country not Found')
+//     .then(data => {
+//       renderCountry(data[0]);
+//       const neighbour = data[0].borders;
+//       if (!neighbour) {
+//         console.log('Error');
+//         throw new Error('Country has no neighbours')
+//       };
+//       ;
+//       return getJson(`https://restcountries.com/v3.1/alpha/${neighbour[0]}`, 'country not Found')
+//     })
+//     .then(data => {
+//       renderCountry(data[0], 'neighbour');
+//     }).catch(err => {
+//       console.log(err);
+//       renderError(err.message);
+//     }).finally(() => countriesContainer.style.opacity = 1);
+// }
 
 
 // Creating a Promise
@@ -153,30 +153,30 @@ const getCountryData = function (country) {
 // getPosition().then(res => console.log(res)).catch(err => console.log(err));
 
 // Using async await
-const whereAmI = async function () {
-  try {
-    const position = await getPosition();
-    const { latitude: lat, longitude: lng } = position.coords;
-    const resGeo = await fetch(`https://geocode.xyz/${lat},${lng}?json=1`);
-    if (resGeo.status === 403) throw new Error('Only 1 try per second');
-    const geoData = await resGeo.json();
-    const res = await fetch(`https://restcountries.com/v3.1/name/${geoData.country}`);
-    if (!res.ok) throw new Error('Problem getting the country')
-    const data = await res.json();
-    renderCountry(data[0]);
+// const whereAmI = async function () {
+//   try {
+//     const position = await getPosition();
+//     const { latitude: lat, longitude: lng } = position.coords;
+//     const resGeo = await fetch(`https://geocode.xyz/${lat},${lng}?json=1`);
+//     if (resGeo.status === 403) throw new Error('Only 1 try per second');
+//     const geoData = await resGeo.json();
+//     const res = await fetch(`https://restcountries.com/v3.1/name/${geoData.country}`);
+//     if (!res.ok) throw new Error('Problem getting the country')
+//     const data = await res.json();
+//     renderCountry(data[0]);
 
-    return `You are in ${geoData.city}, ${geoData.country}`;
-  }
-  catch (err) {
-    console.error(`💣 ${err} `);
-    renderError(`💣 ${err}`)
+//     return `You are in ${geoData.city}, ${geoData.country}`;
+//   }
+//   catch (err) {
+//     console.error(`💣 ${err} `);
+//     renderError(`💣 ${err}`)
 
-    // Reject promise returned from async func
-    throw err;
-  }
+//     // Reject promise returned from async func
+//     throw err;
+//   }
 
-}
-console.log('1: Get the location');
+// }
+// console.log('1: Get the location');
 // const loc = whereAmI();
 // console.log(location);
 
@@ -188,14 +188,34 @@ console.log('1: Get the location');
 
 // Using async and IIFE
 
-(async function () {
+// (async function () {
+//   try {
+//     const country = await whereAmI();
+//     console.log(`2: ${country}`);
+//   } catch (err) {
+//     console.error(`2: ${err}`)
+//   }
+//   console.log('3: Location Found');
+// })()
+
+const get3countries = async function (c1, c2, c3) {
   try {
-    const country = await whereAmI();
-    console.log(`2: ${country}`);
+    // fetching synchronously
+    // const [data1] = await getJson(`https://restcountries.com/v3.1/name/${c1}`)
+    // const [data2] = await getJson(`https://restcountries.com/v3.1/name/${c2}`)
+    // const [data3] = await getJson(`https://restcountries.com/v3.1/name/${c3}`)
+
+    // console.log([...data1.capital, ...data2.capital, ...data3.capital]);
+
+    // fetching Asynchronously
+    const data = await Promise.all([getJson(`https://restcountries.com/v3.1/name/${c1}`), 
+    getJson(`https://restcountries.com/v3.1/name/${c2}`), 
+    getJson(`https://restcountries.com/v3.1/name/${c3}`)]);
+
+    console.log(data.map(c => c[0].capital[0]));
   } catch (err) {
-    console.error(`2: ${err}`)
+    console.log(err);
   }
-  console.log('3: Location Found');
-})()
+}
 
-
+get3countries('bulgaria', 'france', 'honduras')
