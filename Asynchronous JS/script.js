@@ -52,14 +52,14 @@ const getPosition = function () {
 const renderError = function (msg) {
   countriesContainer.insertAdjacentHTML('beforeend', `<h1 class="error">${msg} Try Again!</h1>`);
   countriesContainer.style.opacity = 1;
-}
+};
 
 const getJson = function (url, errorMsg = 'Something went wrong') {
   return fetch(url).then(response => {
     if (!response.ok) throw new Error(`${errorMsg} (${response.status})`);
     return response.json()
   })
-}
+};
 ///////////////////////////////////////
 
 
@@ -198,8 +198,8 @@ const getJson = function (url, errorMsg = 'Something went wrong') {
 //   console.log('3: Location Found');
 // })()
 
-const get3countries = async function (c1, c2, c3) {
-  try {
+// const get3countries = async function (c1, c2, c3) {
+//   try {
     // fetching synchronously
     // const [data1] = await getJson(`https://restcountries.com/v3.1/name/${c1}`)
     // const [data2] = await getJson(`https://restcountries.com/v3.1/name/${c2}`)
@@ -207,15 +207,32 @@ const get3countries = async function (c1, c2, c3) {
 
     // console.log([...data1.capital, ...data2.capital, ...data3.capital]);
 
-    // fetching Asynchronously
-    const data = await Promise.all([getJson(`https://restcountries.com/v3.1/name/${c1}`), 
-    getJson(`https://restcountries.com/v3.1/name/${c2}`), 
-    getJson(`https://restcountries.com/v3.1/name/${c3}`)]);
+    // fetching Asynchronously / Promise.all()
 
-    console.log(data.map(c => c[0].capital[0]));
-  } catch (err) {
-    console.log(err);
-  }
-}
+//     const data = await Promise.all([getJson(`https://restcountries.com/v3.1/name/${c1}`), 
+//     getJson(`https://restcountries.com/v3.1/name/${c2}`), 
+//     getJson(`https://restcountries.com/v3.1/name/${c3}`)]);
 
-get3countries('bulgaria', 'france', 'honduras')
+//     console.log(data.map(c => c[0].capital[0]));
+//   } catch (err) {
+//     console.log(err);
+//   }
+// }
+
+// get3countries('bulgaria', 'france', 'honduras')
+
+
+// Promise.race() , Error Requst took to long
+
+const timeout = function(ms) {
+  return new Promise(function(_, reject) {
+    setTimeout(function(){
+      reject(new Error('Request took too long'));
+    }, ms);
+  })
+};
+
+(async function() {
+  const res = await Promise.race([getJson(`https://restcountries.com/v3.1/name/spain`), getJson(`https://restcountries.com/v3.1/name/italy`), getJson(`https://restcountries.com/v3.1/name/germany`), timeout(200)]);
+  console.log(res[0].name);
+})().then().catch(err => console.log(err));
