@@ -1,29 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Img Shuffle</title>
+    <link rel="icon" href="#" />
     <script defer src="script.js"></script>
     <style>
-        * {
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: inherit;
+      }
 
-        body {
-            overflow: hidden;
-        }
-        img {
-            width: 100vw;
-        }
+      body {
+        font-family: system-ui;
+        color: #555;
+        background-color: #f7f7f7;
+        min-height: 100vh;
+        padding: 10rem;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      img {
+        width: 100vw;
+      }
+
+      .images {
+        display: flex;
+      }
+
+      .images img {
+        display: block;
+        width: 80rem;
+        margin: 4rem;
+      }
+
+      .images img.parallel {
+        width: 40rem;
+        margin: 2rem;
+        border: 3rem solid white;
+        box-shadow: 0 2rem 5rem 1rem rgba(0, 0, 0, 0.1);
+      }
     </style>
-</head>
-<body>
-    <div class="images">
-        
-    </div>
-</body>
+  </head>
+  <body>
+    <div class="images"></div>
+  </body>
 </html>

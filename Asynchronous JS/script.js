@@ -224,15 +224,15 @@ const getJson = function (url, errorMsg = 'Something went wrong') {
 
 // Promise.race() , Error Requst took to long
 
-const timeout = function(ms) {
-  return new Promise(function(_, reject) {
-    setTimeout(function(){
-      reject(new Error('Request took too long'));
-    }, ms);
-  })
-};
+// const timeout = function(ms) {
+//   return new Promise(function(_, reject) {
+//     setTimeout(function(){
+//       reject(new Error('Request took too long'));
+//     }, ms);
+//   })
+// };
 
-(async function() {
-  const res = await Promise.race([getJson(`https://restcountries.com/v3.1/name/spain`), getJson(`https://restcountries.com/v3.1/name/italy`), getJson(`https://restcountries.com/v3.1/name/germany`), timeout(200)]);
-  console.log(res[0].name);
-})().then().catch(err => console.log(err));
+// (async function() {
+//   const res = await Promise.race([getJson(`https://restcountries.com/v3.1/name/spain`), getJson(`https://restcountries.com/v3.1/name/italy`), getJson(`https://restcountries.com/v3.1/name/germany`), timeout(200)]);
+//   console.log(res[0].name);
+// })().then().catch(err => console.log(err));
