@@ -1,7 +1,7 @@
-// import AddToCart, {cart} from './shopingCart.js';
-// console.log('Module Imported');
-// AddToCart('bread', 3);
-// console.log(cart);
+import AddToCart, {cart} from './shoppingCart.js';
+console.log('Module Imported');
+AddToCart('bread', 3);
+console.log(cart);
 
 
 // import * as ShoppingCart from './shoppingCart.js';
@@ -45,7 +45,8 @@
 
 // Practicing npm
 
-import  cloneDeep  from "./node_modules/lodash-es/cloneDeep.js";
+// import  cloneDeep  from "./node_modules/lodash-es/cloneDeep.js";
+import cloneDeep from 'lodash';
 
 const state = {
     cart: [
@@ -63,3 +64,6 @@ const stateDeepClone = cloneDeep(state);
 state.user.loggedIn = false;
 console.log(stateDeepClone);
 console.log(state);
+if(module.hot) {
+    module.hot.accept();
+}
