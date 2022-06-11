@@ -1,4 +1,10 @@
 import AddToCart, {cart} from './shoppingCart.js';
+// Polyfilling array.find 
+import 'core-js';
+// Polyfilling async functions
+import 'regenerator-runtime/runtime'
+
+
 console.log('Module Imported');
 AddToCart('bread', 3);
 console.log(cart);
@@ -67,3 +73,19 @@ console.log(state);
 if(module.hot) {
     module.hot.accept();
 }
+
+class newClass {
+    #privateVar = 'value';
+    constructor(name){
+        this.name = name;
+    }
+}
+
+const myClass = new newClass('My Class');
+console.log(myClass.name);
+console.log(myClass);
+Promise.resolve('Test').then(x => console.log(x));
+
+console.log(cart.find(el => el.quantity >1));
+
+
