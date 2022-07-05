@@ -11,11 +11,11 @@ class RecipeView {
         const markup = this.#generateMarkup();
         this.#clear();
         this.#parentElement.insertAdjacentHTML('afterbegin', markup);
-    }
+    };
 
     #clear() {
         this.#parentElement.innerHTML = '';
-    }
+    };
 
     #generateMarkup() {
         return `<figure class="recipe__fig">
