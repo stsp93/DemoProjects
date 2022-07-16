@@ -113,6 +113,9 @@ class RecipeView {
         this.#clear();
         this.#parentElement.insertAdjacentHTML('afterbegin', markup);
     };
+    addHandlerRender(handler) {
+      ['hashchange', 'load'].forEach(e => window.addEventListener(e, handler));
+    }
 
     #ingredience(ing) {
             return `<li class="recipe__ingredient">

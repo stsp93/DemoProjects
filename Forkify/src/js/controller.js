@@ -38,4 +38,7 @@ const controlRecipe = async function () {
 // window.addEventListener('hashchange', controlRecipe);
 // window.addEventListener('load', controlRecipe);
 // Non repetitive event listener
-['hashchange', 'load'].forEach(e => window.addEventListener(e, controlRecipe));
+const init = function () {
+  recipeView.addHandlerRender(controlRecipe);
+}
+init();
