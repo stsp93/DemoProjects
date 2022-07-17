@@ -553,7 +553,7 @@ const controlRecipe = async function() {
         // 2. Rendering Recipe
         (0, _recipeViewJsDefault.default).render(_modelJs.state.recipe);
     } catch (err) {
-        alert(err);
+        (0, _recipeViewJsDefault.default).renderError();
     }
 };
 // window.addEventListener('hashchange', controlRecipe);
@@ -1831,6 +1831,7 @@ const loadRecipe = async function(id) {
         console.log(state.recipe);
     } catch (err) {
         console.error(`${err} 💣💣💣`);
+        throw err;
     }
 };
 
@@ -1907,6 +1908,8 @@ var _fractional = require("fractional");
 class RecipeView {
     #parentElement = document.querySelector(".recipe");
     #data;
+    #errorMessage = "Recipe Not Found\uD83E\uDD14\uD83E\uDD14\uD83E\uDD14\uD83E\uDD14   Try Again";
+    #message = "";
     render(data) {
         this.#data = data;
         const markup = this.#generateMarkup();
@@ -2002,7 +2005,7 @@ class RecipeView {
         </div>
         `;
     }
-    renderSpinner = function() {
+    renderSpinner() {
         const markup = `<div class="spinner">
         <svg>
           <use href="${(0, _iconsSvgDefault.default)}#icon-loader"></use>
@@ -2010,7 +2013,31 @@ class RecipeView {
         </div>`;
         this.#clear();
         this.#parentElement.insertAdjacentHTML("afterbegin", markup);
-    };
+    }
+    renderError(message = this.#errorMessage) {
+        let markup = `<div class="error">
+    <div>
+      <svg>
+        <use href="${(0, _iconsSvgDefault.default)}#icon-alert-triangle"></use>
+      </svg>
+    </div>
+    <p>${message}</p>
+  </div>`;
+        this.#clear();
+        this.#parentElement.insertAdjacentHTML("afterbegin", markup);
+    }
+    renderMessage(message = this.#message) {
+        let markup = `<div class="error">
+    <div>
+      <svg>
+        <use href="${(0, _iconsSvgDefault.default)}#icon-smile"></use>
+      </svg>
+    </div>
+    <p>${message}</p>
+  </div>`;
+        this.#clear();
+        this.#parentElement.insertAdjacentHTML("afterbegin", markup);
+    }
     addHandlerRender(handler) {
         [
             "hashchange",
