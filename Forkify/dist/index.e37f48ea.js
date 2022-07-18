@@ -543,6 +543,7 @@ var _searchViewJsDefault = parcelHelpers.interopDefault(_searchViewJs);
 var _resultsViewJs = require("./views/resultsView.js");
 var _resultsViewJsDefault = parcelHelpers.interopDefault(_resultsViewJs);
 "use stict";
+if (module.hot) module.hot.accept();
 // https://forkify-api.herokuapp.com/v2
 ///////////////////////////////////////
 const controlRecipe = async function() {
@@ -568,7 +569,6 @@ const controlSearchResults = async function() {
         await _modelJs.loadSearchResult(query);
         // 3. Render results
         (0, _resultsViewJsDefault.default).render(_modelJs.state.search.results);
-        console.log(_modelJs.state.search.results);
     } catch (err) {
         console.log(err);
     }
@@ -1849,7 +1849,6 @@ const loadRecipe = async function(id) {
             cookingTime: recipe.cooking_time,
             ingredients: recipe.ingredients
         };
-        console.log(state.recipe);
     } catch (err) {
         console.error(`${err} 💣💣💣`);
         throw err;
@@ -1866,6 +1865,7 @@ const loadSearchResult = async function(query) {
                 image: rec.image_url
             };
         });
+        console.log(data);
     } catch (err) {
         console.error(`${err} 💣💣💣`);
         throw err;
@@ -1986,9 +1986,6 @@ class RecipeView extends (0, _viewDefault.default) {
         </div>
         
         <div class="recipe__user-generated">
-            <svg>
-              <use href="${0, _iconsSvgDefault.default}#icon-user"></use>
-            </svg>
         </div>
         <button class="btn--round">
           <svg class="">
@@ -2354,6 +2351,7 @@ var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
 class View {
     _data;
     render(data) {
+        if (!data || data.length === 0) return this.renderError();
         this._data = data;
         const markup = this._generateMarkup();
         this._clear();
@@ -2431,26 +2429,23 @@ var _view = require("./View");
 var _viewDefault = parcelHelpers.interopDefault(_view);
 class resultView extends (0, _viewDefault.default) {
     _parentElement = document.querySelector(".results");
+    _errorMessage = "No Recipes Found! Try Again!";
+    _message = "";
     _generateMarkup() {
         return this._data.map(this._generateMarkupPreview).join();
     }
     _generateMarkupPreview(result) {
         return `
         <li class="preview">
-                <a class="preview__link preview__link--active" href="#${result.id}">
-                    <figure class="preview__fig">
-                        <img src="${result.image}" alt="Test" />
-                    </figure>
-                    <div class="preview__data">
-                        <h4 class="preview__title">${result.title}</h4>
-                        <p class="preview__publisher">${result.publisher}</p>
-                        <div class="preview__user-generated">
-                        <svg>
-                            <use href="${0, _iconsSvgDefault.default}#icon-user"></use>
-                        </svg>
-                        </div>
-                    </div>
-                </a>
+            <a class="preview__link" href="#${result.id}">
+                <figure class="preview__fig">
+                    <img src="${result.image}" alt="${result.title}" />
+                </figure>
+                <div class="preview__data">
+                    <h4 class="preview__title">${result.title}</h4>
+                    <p class="preview__publisher">${result.publisher}</p>
+                </div>
+            </a>
           </li>
         `;
     }
