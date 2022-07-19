@@ -43,14 +43,13 @@ export const loadSearchResult = async function (query) {
                 image: rec.image_url,
             }
         });
-        console.log(data);
     } catch (err) {
         console.error(`${err} 💣💣💣`);
         throw err;
     }
 };
 
-export const getSearchResultsPage = function (page = state.search.page) {
+export const getSearchResultsPage = function (page = 1) {
     state.search.page = page;
     let start = (page - 1) * RESULTS_PER_PAGE;
     let end = page * RESULTS_PER_PAGE;

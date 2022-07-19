@@ -58,7 +58,7 @@ class RecipeView extends View {
         <div class="recipe__ingredients">
         <h2 class="heading--2">Recipe ingredients</h2>
         <ul class="recipe__ingredient-list">
-            ${this._data.ingredients.map(this._ingredience).join('')}         
+            ${this._data.ingredients.map(this._ingredients).join('')}         
           <li class="recipe__ingredient">
             <svg class="recipe__icon">
               <use href="${icons}#icon-check"></use>
@@ -103,7 +103,7 @@ class RecipeView extends View {
     ['hashchange', 'load'].forEach(e => window.addEventListener(e, handler));
   };
 
-  _ingredience(ing) {
+  _ingredients(ing) {
     return `<li class="recipe__ingredient">
               <svg class="recipe__icon">
                 <use href="${icons}#icon-check"></use>
