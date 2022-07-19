@@ -3,9 +3,9 @@ import { getJSON } from './helpers.js';
 
 export const state = {
     recipe: {},
-    search:{
-        query:'',
-        results:[],
+    search: {
+        query: '',
+        results: [],
         page: 1,
         resultsPerPage: RESULTS_PER_PAGE,
     },
@@ -55,5 +55,11 @@ export const getSearchResultsPage = function (page = 1) {
     let end = page * RESULTS_PER_PAGE;
 
     return state.search.results.slice(start, end)
-}
+};
 
+export const updateServings = function (newServings) {
+    state.recipe.ingredients.forEach(ing => {
+        ing.quantity = (ing.quantity * newServings) / state.recipe.servings;
+    });
+    state.recipe.servings = newServings;
+};
