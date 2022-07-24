@@ -1,5 +1,5 @@
-import { API_URL, RESULTS_PER_PAGE } from './config.js';
-import { getJSON } from './helpers.js';
+import { API_URL, KEY, RESULTS_PER_PAGE } from './config.js';
+import { getJSON, sendJSON } from './helpers.js';
 
 export const state = {
     recipe: {},
@@ -12,21 +12,27 @@ export const state = {
     bookmarks: [],
 };
 
+
+const createRecipe = function (data) {
+    const { recipe } = data.data;
+     return state.recipe = {
+        id: recipe.id,
+        title: recipe.title,
+        publisher: recipe.publisher,
+        sourceUrl: recipe.source_url,
+        image: recipe.image_url,
+        servings: recipe.servings,
+        cookingTime: recipe.cooking_time,
+        ingredients: recipe.ingredients,
+    };
+}
+
 export const loadRecipe = async function (id) {
     try {
         const data = await getJSON(`${API_URL}${id}`);
 
-        const { recipe } = data.data;
-        state.recipe = {
-            id: recipe.id,
-            title: recipe.title,
-            publisher: recipe.publisher,
-            sourceUrl: recipe.source_url,
-            image: recipe.image_url,
-            servings: recipe.servings,
-            cookingTime: recipe.cooking_time,
-            ingredients: recipe.ingredients,
-        };
+        state.recipe = createRecipe(data)
+
         if (state.bookmarks.some(bookmark => bookmark.id === id)) {
             state.recipe.bookmarked = true;
         } else {
@@ -104,3 +110,31 @@ const init = function () {
     if (bookmarks) state.bookmarks = JSON.parse(bookmarks)
 }
 init();
+
+
+export const uploadRecipe = async function (newRecipe) {
+    try {
+        const ingredients = Object.entries(newRecipe).filter(entries => entries[0].startsWith('ingredient') && entries[1] !== '').map(ing => {
+            const ingArr = ing[1].replace(/' '/g, '').split(',');
+            if (ingArr.length !== 3) throw new Error('Invalid ingredients format.Please fill with correct format 🙂');
+            const [quntity, unit, description] = ingArr;
+            return { quntity: quntity ? +quntity : null, unit, description }
+        });
+        const recipe = {
+            title: newRecipe.title,
+            publisher: newRecipe.publisher,
+            source_url: newRecipe.sourceUrl,
+            image_url: newRecipe.imageUrl,
+            servings: +newRecipe.servings,
+            cooking_time: +newRecipe.cookingTime,
+            ingredients,
+        }
+        console.log(recipe);
+        const data = await sendJSON(`${API_URL}?=key${KEY}`, recipe);
+        state.recipe = createRecipe(data);
+        addBookmark(state.recipe);
+        console.log(data);
+    } catch (err) {
+        throw err;
+    }
+}
