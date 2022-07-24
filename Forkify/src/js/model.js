@@ -1,5 +1,5 @@
 import { API_URL, KEY, RESULTS_PER_PAGE } from './config.js';
-import { getJSON, sendJSON } from './helpers.js';
+import { AJAX } from './helpers.js';
 
 export const state = {
     recipe: {},
@@ -15,7 +15,7 @@ export const state = {
 
 const createRecipe = function (data) {
     const { recipe } = data.data;
-     return state.recipe = {
+    return state.recipe = {
         id: recipe.id,
         title: recipe.title,
         publisher: recipe.publisher,
@@ -29,7 +29,7 @@ const createRecipe = function (data) {
 
 export const loadRecipe = async function (id) {
     try {
-        const data = await getJSON(`${API_URL}${id}`);
+        const data = await AJAX(`${API_URL}${id}`);
 
         state.recipe = createRecipe(data)
 
@@ -46,7 +46,7 @@ export const loadRecipe = async function (id) {
 
 export const loadSearchResult = async function (query) {
     try {
-        const data = await getJSON(`${API_URL}?search=${query}`);
+        const data = await AJAX(`${API_URL}?search=${query}`);
         state.search.results = data.data.recipes.map(rec => {
             return {
                 id: rec.id,
@@ -129,8 +129,8 @@ export const uploadRecipe = async function (newRecipe) {
             cooking_time: +newRecipe.cookingTime,
             ingredients,
         }
-        console.log(recipe);
-        const data = await sendJSON(`${API_URL}?=key${KEY}`, recipe);
+
+        const data = await AJAX(`${API_URL}?=key${KEY}`, recipe);
         state.recipe = createRecipe(data);
         addBookmark(state.recipe);
         console.log(data);
