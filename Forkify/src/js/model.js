@@ -12,7 +12,11 @@ export const state = {
     bookmarks: [],
 };
 
-
+/**
+ * Creates formated recipe object
+ * @param {Object} data Unformated object
+ * @returns Recipe object is returned
+ */
 const createRecipe = function (data) {
     const { recipe } = data.data;
     return state.recipe = {
@@ -26,7 +30,10 @@ const createRecipe = function (data) {
         ingredients: recipe.ingredients,
     };
 }
-
+/**
+ * Makes AJAX call with the passed id to the Forkify API to load the recipe
+ * @param {*} id 
+ */ 
 export const loadRecipe = async function (id) {
     try {
         const data = await AJAX(`${API_URL}${id}`);
@@ -43,7 +50,10 @@ export const loadRecipe = async function (id) {
         throw err;
     }
 };
-
+/**
+ * AJAX call searching for recipes
+ * @param {*} query Search query
+ */
 export const loadSearchResult = async function (query) {
     try {
         const data = await AJAX(`${API_URL}?search=${query}`);
@@ -61,7 +71,11 @@ export const loadSearchResult = async function (query) {
         throw err;
     }
 };
-
+/**
+ * Function to get the search results per page
+ * @param {number} page Current page
+ * @returns Array with recipes
+ */
 export const getSearchResultsPage = function (page = state.search.page) {
     state.search.page = page;
     let start = (page - 1) * RESULTS_PER_PAGE;
@@ -69,19 +83,27 @@ export const getSearchResultsPage = function (page = state.search.page) {
 
     return state.search.results.slice(start, end)
 };
-
+/**
+ * Func to alter the ingredients and servings of a recipe
+ * @param {number} newServings Changed servings
+ */
 export const updateServings = function (newServings) {
     state.recipe.ingredients.forEach(ing => {
         ing.quantity = (ing.quantity * newServings) / state.recipe.servings;
     });
     state.recipe.servings = newServings;
 };
-
+/**
+ * Storing the bookmarks to localStorage
+ */
 const persistBookmarks = function () {
     localStorage.setItem('bookmarks', JSON.stringify(state.bookmarks))
 };
 
-
+/**
+ * Adding a bookmark to the state
+ * @param {Object} recipe Recipe object
+ */
 export const addBookmark = function (recipe) {
     //Add bookmark
     state.bookmarks.push(recipe);
@@ -90,7 +112,10 @@ export const addBookmark = function (recipe) {
     if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
     persistBookmarks();
 };
-
+/**
+ * Removing bookmark from the state
+ * @param {*} id If recipe with the id is present in the bookmarks, the recipe is removed
+ */
 export const removeBookmark = function (id) {
     const index = state.bookmarks.find(el => el.id === id);
     state.bookmarks.splice(index, 1);
@@ -104,14 +129,19 @@ const clearBookmarks = function () {
     localStorage.clear();
 };
 // clearBookmarks();
-
+/**
+ * Initializing bookmarks from localStorage on page load
+ */
 const init = function () {
     const bookmarks = localStorage.getItem('bookmarks');
     if (bookmarks) state.bookmarks = JSON.parse(bookmarks)
 }
 init();
 
-
+/**
+ * AJAX call to upload a recipe to Forkify API
+ * @param {*} newRecipe Recipe object from html form
+ */
 export const uploadRecipe = async function (newRecipe) {
     try {
         const ingredients = Object.entries(newRecipe).filter(entries => entries[0].startsWith('ingredient') && entries[1] !== '').map(ing => {

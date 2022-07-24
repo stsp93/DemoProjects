@@ -8,6 +8,12 @@ const timeout = function (s) {
     });
   };
 
+  /**
+   * Makes AJAX call to Forkify API
+   * @param {string} url 
+   * @param {Object} [uploadData  = undefined]
+   * @returns Returns a parsed JSON object from the Forkify API
+   */
 export const AJAX = async function(url, uploadData = undefined) {
   try {
   const fetchPro = uploadData ? fetch(url, {
